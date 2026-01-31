@@ -1,18 +1,9 @@
 import { Link } from "expo-router";
-import { useState } from "react";
 import { Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import { Button } from "../components/button";
 import { Input } from "../components/input";
 
-export default function Index(){
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
-    function handleSignIn(email: string, password: string) {
-        console.log("Email:", email);
-        console.log("Password:", password);
-    }
-
+export default function Register(){
     return(
         <KeyboardAvoidingView 
         style={{flex: 1}}
@@ -27,21 +18,20 @@ export default function Index(){
                             <Image 
                                 source={require("../assets/easy_logo.png")}
                                 style={styles.illustration}/>
-                            <Text style={styles.title}>Entrar</Text>
-                            <Text style={styles.subtitle}>Acesse sua conta</Text>
+                            <Text style={styles.title}>Cadastrar</Text>
+                            <Text style={styles.subtitle}>Crie sua conta</Text>
 
                             <View style={styles.form}>
-                                <Input placeholder="Digite aqui seu Email" keyboardType="email-address" onChangeText={(textEmail) => {setEmail(textEmail)}}/>
-                                <Input placeholder="Digite aqui sua Senha" secureTextEntry={true} onChangeText={(textPassword) => {setPassword(textPassword)}}/>
-                                <Button label="Entrar" 
-                                    onPress={
-                                        () => handleSignIn(email, password)
-                                    }/>
+                                <Input placeholder="Nome" keyboardType="default"/>
+                                <Input placeholder="Email" keyboardType="email-address"/>
+                                <Input placeholder="Senha" secureTextEntry={true}/>
+                                <Input placeholder="Confirmar senha" secureTextEntry={true}/>
+                                <Button label="Cadastrar"/>
                             </View>
                             
                             <View>
-                                <Link href="/register">
-                                    <Text style={styles.footerText}>Cadastre-se aqui</Text>
+                                <Link href="/">
+                                    <Text style={styles.footerText}>Já possui uma conta? Entre aqui</Text>
                                 </Link>
                             </View>
 
