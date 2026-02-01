@@ -23,7 +23,7 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.anonymous.easy_agendamentos"
+      "package": "com.gabrielportari.easy_agendamentos"
     },
     "web": {
       "bundler": "metro",
