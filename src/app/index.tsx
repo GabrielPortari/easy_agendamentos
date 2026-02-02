@@ -1,6 +1,6 @@
-import Login from "../screens/login";
+import Routes from "../navigation/index.navigation";
 
 
 export default function Index(){
-    return <Login />;
+    return <Routes/>;
 }

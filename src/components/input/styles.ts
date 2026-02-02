@@ -1,4 +1,4 @@
-import { themes } from "@/src/global/themes";
+import { themes } from "@/src/themes";
 import { StyleSheet } from "react-native";
 
 export const inputStyles = StyleSheet.create({
@@ -25,7 +25,7 @@ export const inputStyles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 16,
         backgroundColor: themes.colors.lightGray,
-        borderColor: themes.colors.lightGray,
+        borderColor: themes.colors.gray,
         marginTop: 10,
         paddingHorizontal: 8,
         flexDirection: "row",

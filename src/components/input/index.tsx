@@ -1,7 +1,7 @@
-import { themes } from "@/src/global/themes";
 import { FontAwesome, MaterialIcons, Octicons } from "@expo/vector-icons";
 import React, { forwardRef, Fragment, Ref } from "react";
 import { Text, TextInput, TextInputProps, TouchableOpacity, View } from "react-native";
+import { themes } from "../../global/themes";
 import { inputStyles } from "./styles";
 
 type IconComponent = React.ComponentType<React.ComponentProps<typeof MaterialIcons>> |
@@ -51,7 +51,6 @@ export const Input = forwardRef((props: Props, ref: Ref<TextInput> | null) => {
             style={[inputStyles.boxInput, { paddingLeft: calculatePaddingLeft() }]}>
             {IconLeft && iconLeftName && (
                 <TouchableOpacity onPress={onIconLeftPress} style={inputStyles.button}>
-                
                     <IconLeft 
                         name={iconLeftName as any} 
                         size={20} 
@@ -61,11 +60,11 @@ export const Input = forwardRef((props: Props, ref: Ref<TextInput> | null) => {
                 </TouchableOpacity>
             )}
             
-            <TextInput style={[inputStyles.textInput, { width: calculateSizeWidth() }]} {...rest} />
+            <TextInput style={[inputStyles.textInput, { width: calculateSizeWidth() }]} placeholder={placeholder} {...rest} />
 
             {IconRight && iconRightName && (
                 <TouchableOpacity onPress={onIconRightPress} style={inputStyles.button}>
-                    <IconRight 
+                    <IconRight
                         name={iconRightName as any} 
                         size={20} 
                         color={themes.colors.gray}

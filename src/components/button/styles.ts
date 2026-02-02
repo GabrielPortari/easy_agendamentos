@@ -1,5 +1,5 @@
 
-import { themes } from "@/src/global/themes";
+import { themes } from "@/src/themes";
 import { StyleSheet } from "react-native";
 
 export const buttonStyles = StyleSheet.create({
