@@ -1,4 +1,5 @@
 import AppointmentCard from '@/src/components/appointment_card/appointment_card';
+import NameChangeModal from '@/src/components/name_change_modal/name_change_modal';
 import NewAppointmentModal from '@/src/components/new_appointment_modal/new_appointment_modal';
 import TodayAppointment from '@/src/components/today_appointments/today_appointments_card';
 import { themes } from '@/src/global/themes';
@@ -11,6 +12,9 @@ import { styles } from './styles';
 export default function Home() {
 
 	const [showModal, setShowModal] = useState(false);
+	const [username, setUsername] = useState('user_name');
+	const [showNameModal, setShowNameModal] = useState(false);
+	const [tempName, setTempName] = useState(username);
 
 	const appointments = [
 		{
@@ -53,8 +57,10 @@ export default function Home() {
 			<View style={styles.container}>
 				<View style={styles.boxTop}>
 					<View style={styles.welcomeRow}>
-						<Text style={styles.welcomeText}>Bem vindo, <Text style={{color:themes.colors.primary}}>user_name</Text></Text>
-						<MaterialIcons name="edit"  size={28} color={themes.colors.gray} />
+						<Text style={styles.welcomeText}>Bem vindo, <Text style={{color:themes.colors.primary}}>{username}</Text></Text>
+						<TouchableOpacity onPress={() => { setTempName(username); setShowNameModal(true); }}>
+							<MaterialIcons name="edit"  size={28} color={themes.colors.gray} />
+						</TouchableOpacity>
 					</View>
 					<Text style={styles.infoAppointments}>Você possui <Text style={{color:themes.colors.primary}}>{appointments.length} agendamentos</Text> hoje</Text>
 				</View>
@@ -89,6 +95,13 @@ export default function Home() {
 					}}
 				/>
 
+				<NameChangeModal
+					visible={showNameModal}
+					initialValue={username}
+					onClose={() => setShowNameModal(false)}
+					onSave={(newName) => { setUsername(newName); setShowNameModal(false); }}
+				/>
+
 				<TouchableOpacity
 					activeOpacity={0.65}
 					style={styles.fab}
@@ -101,5 +114,7 @@ export default function Home() {
 			</View>
 	);
 }
+
+
 
 

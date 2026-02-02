@@ -1,7 +1,8 @@
+import { themes } from "@/src/global/themes";
 import { Platform, StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-	container: { flex: 1, backgroundColor: '#f3f3ff' },
+	container: { flex: 1, backgroundColor: themes.colors.bg },
 	boxTop:{
 		paddingTop: 60,
 		paddingHorizontal: 24,
@@ -40,7 +41,7 @@ export const styles = StyleSheet.create({
 		width: 64,
 		height: 64,
 		borderRadius: 32,
-		backgroundColor: '#2558ff',
+		backgroundColor: themes.colors.primary,
 		justifyContent: 'center',
 		alignItems: 'center',
 		...Platform.select({
