@@ -5,6 +5,7 @@ export const styles = StyleSheet.create({
 	boxTop:{
 		paddingTop: 60,
 		paddingHorizontal: 24,
+		paddingBottom: 24,
 		height: "20%",
 		justifyContent: 'center',
 	},
@@ -33,8 +34,9 @@ export const styles = StyleSheet.create({
 	},
 	fab: {
 		position: 'absolute',
-		alignSelf: 'center',
-		bottom: 28,
+		alignSelf: 'flex-end',
+		bottom: 24,
+		marginRight: 24,
 		width: 64,
 		height: 64,
 		borderRadius: 32,

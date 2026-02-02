@@ -14,6 +14,10 @@ export const styles = StyleSheet.create({
         marginBottom: 12,
         elevation: 2,
     },
+    textTitle:{
+        fontSize: 15,
+        fontWeight: '500',
+    },
     rowItem:{
         flexDirection: 'row', 
         alignItems: 'center', 

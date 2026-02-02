@@ -18,7 +18,7 @@ export default function AppointmentCard({ date, client, price, type, status }: P
             <View style={styles.rowItem}>
                 {type === 'next' ? <MaterialIcons name="arrow-forward-ios" size={16} color={themes.colors.primary} /> : 
                 <MaterialIcons name="arrow-back-ios" size={16} color={themes.colors.primary} />}
-                <Text>{type === 'next' ? 'Próximo agendamento' : 'Agendamento anterior'}</Text>
+                <Text style={styles.textTitle}>{type === 'next' ? 'Próximo agendamento' : 'Agendamento anterior'}</Text>
             </View>
 
             <View style={styles.rowItem}>
@@ -34,7 +34,7 @@ export default function AppointmentCard({ date, client, price, type, status }: P
 
             <View style={styles.rowItem}>
                 <MaterialIcons name="attach-money" size={16} color={themes.colors.gray} />
-                <Text>{price}</Text>
+                <Text style={{color: themes.colors.success }}>{price}</Text>
             </View>
 
             {status === 'done' && (
