@@ -1,0 +1,50 @@
+import { themes } from '@/src/global/themes';
+import { StyleSheet } from 'react-native';
+
+export const styles = StyleSheet.create({
+    card: {
+        width: '100%',
+        height: 'auto',
+        borderRadius: 16,
+        borderWidth: 1,
+        justifyContent: 'center',
+        backgroundColor: 'white',
+        borderColor: themes.colors.lightGray,
+        padding: 20,
+        marginBottom: 12,
+        elevation: 2,
+    },
+    rowItem:{
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        gap: 8, 
+        marginBottom: 4,
+        marginTop: 4,
+    },
+    appointmentDoneBox:{
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'flex-start',
+        marginTop: 8,
+        paddingHorizontal: 6,
+        paddingVertical: 2,
+        borderRadius: 6,
+        borderWidth: 1,
+        borderColor: 'transparent',
+        backgroundColor: themes.colors.successLight,
+    },
+    appointmentCanceledBox:{
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'flex-start',
+        marginTop: 8,
+        paddingHorizontal: 6,
+        paddingVertical: 2,
+        borderRadius: 6,
+        borderWidth: 1,
+        borderColor: 'transparent',
+        backgroundColor: themes.colors.errorLight,
+    },
+});

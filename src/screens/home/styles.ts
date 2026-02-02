@@ -1,14 +1,35 @@
 import { Platform, StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-	container: { flex: 1, backgroundColor: '#fff' },
+	container: { flex: 1, backgroundColor: '#f3f3ff' },
 	boxTop:{
-		paddingTop: 48,
-		paddingBottom: 16,
+		paddingTop: 60,
 		paddingHorizontal: 24,
-		height: "25%",
+		height: "20%",
 		justifyContent: 'center',
-		backgroundColor: '#f5f5f5',
+	},
+	boxMiddle:{
+		flex: 2,
+		paddingHorizontal: 24,
+		paddingTop: 16,
+		flexDirection: 'row',
+		flexWrap: 'wrap',
+		alignItems: 'flex-start',
+		gap: 12,
+		justifyContent: 'space-between',
+	},
+	welcomeRow:{
+		flexDirection: 'row',
+		gap: 12,
+		alignItems: 'center',
+	},
+	infoAppointments:{
+		marginTop: 16,
+		fontSize: 16,
+	},
+	welcomeText:{
+		fontSize: 24,
+		fontWeight: '500',
 	},
 	fab: {
 		position: 'absolute',
