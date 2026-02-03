@@ -3,15 +3,15 @@ import { MaterialIcons } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import React, { useState } from 'react';
 import {
-    Alert,
-    KeyboardAvoidingView,
-    Modal,
-    Platform,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    TouchableWithoutFeedback,
-    View
+  Alert,
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View
 } from 'react-native';
 import { styles } from './styles';
 
@@ -89,6 +89,8 @@ export default function NewAppointmentModal({ visible, onClose, onAdd }: Props) 
       transparent
       animationType="fade"
       onRequestClose={onClose} // Android back
+      statusBarTranslucent
+      presentationStyle="overFullScreen"
     >
       <TouchableWithoutFeedback onPress={onClose}>
         <View style={styles.backdrop}>

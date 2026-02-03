@@ -15,7 +15,7 @@ export default function NameChangeModal({ visible, initialValue = '', onClose, o
 	useEffect(() => setName(initialValue), [initialValue, visible]);
 
 	return (
-		<Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
+		<Modal visible={visible} transparent animationType="fade" onRequestClose={onClose} statusBarTranslucent presentationStyle="overFullScreen">
 			<TouchableWithoutFeedback onPress={onClose}>
 				<View style={styles.backdrop}>
 					<KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.wrapper}>

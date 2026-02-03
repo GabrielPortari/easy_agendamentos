@@ -2,7 +2,7 @@ import { themes } from '@/src/global/themes';
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-	backdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.35)', justifyContent: 'center', paddingHorizontal: 20 },
+	backdrop: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.35)', justifyContent: 'center', paddingHorizontal: 20 },
 	wrapper: { width: '100%', alignItems: 'center' },
 	modal: { width: '100%', maxWidth: 600, backgroundColor: '#fff', borderRadius: 12, padding: 16 },
 	title: { fontSize: 18, fontWeight: '600', marginBottom: 12 },
