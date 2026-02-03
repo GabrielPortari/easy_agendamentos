@@ -54,64 +54,65 @@ export default function Home() {
 		},
 	]
 	return (
-			<View style={styles.container}>
+		<View style={styles.container}>
+			<ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingTop: 10, paddingBottom: 120 }}>
 				<View style={styles.boxTop}>
 					<View style={styles.welcomeRow}>
-						<Text style={[styles.welcomeText, { flex: 6 }]}>Bem vindo, <Text style={{color:themes.colors.primary}}>{username}</Text></Text>
+						<Text style={[styles.welcomeText, { flex: 6 }]}>Bem vindo, <Text style={{ color: themes.colors.primary }}>{username}</Text></Text>
 						<TouchableOpacity style={{ padding: 4, flex: 1 }} onPress={() => { setTempName(username); setShowNameModal(true); }}>
-							<MaterialIcons name="edit"  size={28} color={themes.colors.gray} />
+							<MaterialIcons name="edit" size={28} color={themes.colors.gray} />
 						</TouchableOpacity>
 					</View>
-					<Text style={styles.infoAppointments}>Você possui <Text style={{color:themes.colors.primary}}>{appointments.length} agendamentos</Text> hoje</Text>
+					<Text style={styles.infoAppointments}>Você possui <Text style={{ color: themes.colors.primary }}>{appointments.length} agendamentos</Text> hoje</Text>
 				</View>
-				<ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingTop: 10, paddingBottom: 120 }}>
-					<View style={styles.boxMiddle}>
-						<AppointmentCard
-							date={formatDateAppointmentCard(appointments[2].date)}
-							client={appointments[2].client}
-							price={appointments[2].price}
-							type="next"
-						/>
-						
-						<AppointmentCard
-							date={formatDateAppointmentCard(appointments[4].date)}
-							client={appointments[4].client}
-							price={appointments[4].price}
-							type="previous"
-							status="done"
-						/>
-						
-						<TodayAppointment appointments={appointments} />
 
-					</View>
-				</ScrollView>
+				<View style={styles.boxMiddle}>
+					<AppointmentCard
+						date={formatDateAppointmentCard(appointments[2].date)}
+						client={appointments[2].client}
+						price={appointments[2].price}
+						type="next"
+					/>
 
-				<NewAppointmentModal
-					visible={showModal}
-					onClose={() => setShowModal(false)}
-					onAdd={(newAppointment) => {
-						console.log(newAppointment);
-						setShowModal(false);
-					}}
-				/>
+					<AppointmentCard
+						date={formatDateAppointmentCard(appointments[4].date)}
+						client={appointments[4].client}
+						price={appointments[4].price}
+						type="previous"
+						status="done"
+					/>
 
-				<NameChangeModal
-					visible={showNameModal}
-					initialValue={username}
-					onClose={() => setShowNameModal(false)}
-					onSave={(newName) => { setUsername(newName); setShowNameModal(false); }}
-				/>
+					<TodayAppointment appointments={appointments} />
 
-				<TouchableOpacity
-					activeOpacity={0.65}
-					style={styles.fab}
-					onPress={() => {
-						setShowModal(true);
-					}}
-				>
-					<MaterialIcons name="add" size={32} color="#fff" />
-				</TouchableOpacity>
-			</View>
+				</View>
+			</ScrollView>
+
+			<NewAppointmentModal
+				visible={showModal}
+				onClose={() => setShowModal(false)}
+				onAdd={(newAppointment) => {
+					console.log(newAppointment);
+					setShowModal(false);
+				}}
+			/>
+
+			<NameChangeModal
+				visible={showNameModal}
+				initialValue={username}
+				onClose={() => setShowNameModal(false)}
+				onSave={(newName) => { setUsername(newName); setShowNameModal(false); }}
+			/>
+
+			<TouchableOpacity
+				activeOpacity={0.65}
+				style={styles.fab}
+				onPress={() => {
+					setShowModal(true);
+				}}
+			>
+				<MaterialIcons name="add" size={32} color="#fff" />
+			</TouchableOpacity>
+		</View>
 	);
 }
 
