@@ -57,8 +57,8 @@ export default function Home() {
 			<View style={styles.container}>
 				<View style={styles.boxTop}>
 					<View style={styles.welcomeRow}>
-						<Text style={styles.welcomeText}>Bem vindo, <Text style={{color:themes.colors.primary}}>{username}</Text></Text>
-						<TouchableOpacity onPress={() => { setTempName(username); setShowNameModal(true); }}>
+						<Text style={[styles.welcomeText, { flex: 6 }]}>Bem vindo, <Text style={{color:themes.colors.primary}}>{username}</Text></Text>
+						<TouchableOpacity style={{ padding: 4, flex: 1 }} onPress={() => { setTempName(username); setShowNameModal(true); }}>
 							<MaterialIcons name="edit"  size={28} color={themes.colors.gray} />
 						</TouchableOpacity>
 					</View>

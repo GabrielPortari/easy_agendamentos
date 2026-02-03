@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
 		paddingTop: 60,
 		paddingHorizontal: 24,
 		paddingBottom: 24,
-		height: "20%",
+		height: "auto",
 		justifyContent: 'center',
 	},
 	boxMiddle:{
