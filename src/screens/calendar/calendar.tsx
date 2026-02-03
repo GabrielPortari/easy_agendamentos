@@ -3,7 +3,7 @@ import ShowAppointmentCard from '@/src/components/show_appointment_card/show_app
 import TotalAppointments from '@/src/components/total_appointments/total_appointments';
 import { themes } from '@/src/global/themes';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 export default function Calendar() {
     const appointments = [
@@ -45,22 +45,24 @@ export default function Calendar() {
 	]
     return (
         <View style={styles.container}>
-            <View style={styles.boxTop}>
-                <Text style={styles.title}>Calendário de agendamentos</Text>
-                <Text style={styles.subtitle}>Próximos agendamentos a partir de {appointments[2].date.toLocaleDateString()} às {appointments[3].date.toLocaleTimeString()}</Text>
-            </View>
+            <ScrollView style={{ flex: 1 }}>
+                <View style={styles.boxTop}>
+                    <Text style={styles.title}>Calendário de agendamentos</Text>
+                    <Text style={styles.subtitle}>Próximos agendamentos a partir de {appointments[2].date.toLocaleDateString()} às {appointments[3].date.toLocaleTimeString()}</Text>
+                </View>
 
-            <SearchContainer />
+                <SearchContainer />
 
-            <ShowAppointmentCard
-                title="Hoje"
-                subtitle="Terça feira, 03 de fev. de 2026 às 16:00"
-                time="16:00"
-                client="Jose da silva"
-                price="R$ 200,00"
-            />
+                <ShowAppointmentCard
+                    title="Hoje"
+                    subtitle="Terça feira, 03 de fev. de 2026 às 16:00"
+                    time="16:00"
+                    client="Jose da silva"
+                    price="R$ 200,00"
+                />
 
-			<TotalAppointments count={appointments.length} total={'R$ 670,00'} />
+                <TotalAppointments count={appointments.length} total={'R$ 670,00'} />
+            </ScrollView>
         </View>
     );
 }

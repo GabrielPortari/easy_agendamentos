@@ -55,7 +55,7 @@ export default function Home() {
 	]
 	return (
 		<View style={styles.container}>
-			<ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingTop: 10, paddingBottom: 120 }}>
+			<ScrollView style={{ flex: 1 }} contentContainerStyle={{paddingBottom: 120 }}>
 				<View style={styles.boxTop}>
 					<View style={styles.welcomeRow}>
 						<Text style={[styles.welcomeText, { flex: 6 }]}>Bem vindo, <Text style={{ color: themes.colors.primary }}>{username}</Text></Text>

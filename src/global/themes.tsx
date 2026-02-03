@@ -10,9 +10,11 @@ export const themes = {
         gray: "#888888",
         darkGray: "#444444",
         bgScreen: "#414141",
-        success: "#3f8f41",
+        success: "#5bc45f",
         successLight: "#d4f5d6",
         error: "#ff4d4d",
         errorLight: "#ffd6d6",
+        warning: "#ffb84d",
+        warningLight: "#ffe6cc",
     }
 }

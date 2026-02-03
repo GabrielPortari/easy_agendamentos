@@ -8,7 +8,6 @@ export const styles = StyleSheet.create({
 		paddingHorizontal: 24,
 		paddingBottom: 24,
 		height: "auto",
-		justifyContent: 'center',
 	},
 	boxMiddle:{
 		flex: 2,

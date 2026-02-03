@@ -13,10 +13,9 @@ export const styles = StyleSheet.create({
     borderRadius: 16,
     paddingVertical: 16,
   },
-  searchRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  input: { flex: 1, borderWidth: 1, borderColor: themes.colors.lightGray, borderRadius: 4, padding: 8, marginLeft: 8 },
-  controlsRow: { flexDirection: 'row', alignItems: 'center', gap: 8, flexWrap: 'nowrap', marginTop: 16, flexShrink: 0 },
-  btn: { paddingVertical: 8, paddingHorizontal: 12, borderRadius: 6, marginLeft: 8 },
-  btnText: { color: "white", fontWeight: '600' },
-  icon: { marginTop: 0 },
+  // search input moved to its own component (SearchInput)
+  controlsRow: { flexDirection: 'row', alignItems: 'center', gap: 8, flexWrap: 'wrap', marginTop: 12, justifyContent: 'flex-start' },
+  btn: { paddingVertical: 8, paddingHorizontal: 8, borderRadius: 8, marginLeft: 8, minWidth: 88, alignItems: 'center', justifyContent: 'center', marginTop: 8 },
+  btnText: { color: "white", fontWeight: '600', fontSize: 14 },
+  icon: { marginTop: 0, marginRight: 8 },
 });
