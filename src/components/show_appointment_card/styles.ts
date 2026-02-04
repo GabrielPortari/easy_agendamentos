@@ -14,8 +14,7 @@ export const styles = StyleSheet.create({
   top: {
     padding: 16,
   },
-  title: { fontSize: 18, fontWeight: '500' },
-  subtitle: { fontSize: 15, marginTop: 4 },
+  title: { fontSize: 16, fontWeight: '500' },
   divider: { height: 1, width: '100%' },
   content: { paddingHorizontal: 16, paddingBottom: 16, paddingTop: 12, gap: 12 },
   row: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 8 },

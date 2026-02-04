@@ -6,18 +6,16 @@ import { styles } from './styles';
 
 type Props = {
   title: string;
-  subtitle: string;
   time: string;
   client: string;
   price: string;
 }
 
-export default function ShowAppointmentCard({ title, subtitle, time, client, price }: Props) {
+export default function ShowAppointmentCard({ title, time, client, price }: Props) {
   return (
     <View style={styles.card}>
       <View style={[styles.top, { backgroundColor: themes.colors.lightBlue }] }>
         <Text style={[styles.title, { color: themes.colors.darkGray }]}>{title}</Text>
-        <Text style={[styles.subtitle, { color: themes.colors.gray }]}>{subtitle}</Text>
       </View>
       <View style={[styles.divider, { backgroundColor: themes.colors.lightGray }]} />
       <View style={styles.content}>

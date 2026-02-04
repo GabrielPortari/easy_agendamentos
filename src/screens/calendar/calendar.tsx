@@ -54,8 +54,7 @@ export default function Calendar() {
                 <SearchContainer />
 
                 <ShowAppointmentCard
-                    title="Hoje"
-                    subtitle="Terça feira, 03 de fev. de 2026 às 16:00"
+                    title="Terça feira, 03 de fev. de 2026 às 16:00"
                     time="16:00"
                     client="Jose da silva"
                     price="R$ 200,00"
