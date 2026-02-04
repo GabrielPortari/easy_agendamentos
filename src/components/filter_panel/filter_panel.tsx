@@ -1,9 +1,11 @@
+import Card from '@/src/components/card/card';
 import FilterButton from '@/src/components/filter_button/filter_button';
 import SearchInput from '@/src/components/search_input/search_input';
 import { themes } from '@/src/global/themes';
 import { MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
+import { styles } from './styles';
 
 type FilterBy = 'all' | 'done' | 'canceled' | 'pending';
 type OrderBy = 'date' | 'name' | 'value';
@@ -19,7 +21,7 @@ type Props = {
 
 export default function FilterPanel({ query, setQuery, filterBy, setFilterBy, orderBy, setOrderBy }: Props) {
   return (
-    <View style={styles.card}>
+    <Card>
       <SearchInput value={query} onChangeText={setQuery} />
 
       <View style={styles.controlsRow}>
@@ -38,11 +40,8 @@ export default function FilterPanel({ query, setQuery, filterBy, setFilterBy, or
         <FilterButton label="Nome" isSelected={orderBy === 'name'} onPress={() => setOrderBy('name')} />
         <FilterButton label="Valor" isSelected={orderBy === 'value'} onPress={() => setOrderBy('value')} />
       </View>
-    </View>
+    </Card>
   );
 }
 
-const styles = StyleSheet.create({
-  card: { marginTop: 24, marginHorizontal: 24, padding: 24, backgroundColor: 'white', elevation: 2, borderColor: themes.colors.lightGray, borderRadius: 16, borderWidth: 1 },
-  controlsRow: { flexDirection: 'row', alignItems: 'center', gap: 8, flexWrap: 'wrap', marginTop: 12, justifyContent: 'flex-start' },
-});
+ 

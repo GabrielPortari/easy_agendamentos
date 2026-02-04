@@ -12,7 +12,7 @@ type Props = {
   iconColor?: string;
 }
 
-export default function ReportCard({ title, value, icon, iconBg, iconColor }: Props) {
+function ReportCard({ title, value, icon, iconBg, iconColor }: Props) {
   const resolvedIconColor = iconColor || (value.startsWith('R$') ? themes.colors.success : themes.colors.primary);
 
   return (
@@ -27,3 +27,5 @@ export default function ReportCard({ title, value, icon, iconBg, iconColor }: Pr
     </View>
   );
 }
+
+export default React.memo(ReportCard);

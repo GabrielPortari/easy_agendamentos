@@ -12,7 +12,7 @@ type Props = {
     status?: 'done' | 'canceled' | 'open';
 }
 
-export default function AppointmentCard({ date, client, price, type, status }: Props) {
+function AppointmentCard({ date, client, price, type, status }: Props) {
     return (
         <View style={styles.card}>
             <View style={styles.rowItem}>
@@ -48,7 +48,9 @@ export default function AppointmentCard({ date, client, price, type, status }: P
                 <Text style={{ color: themes.colors.error }}>Cancelado</Text>
             </View>
             )}
-        </View>
-    );
-}
+            </View>
+        );
+    }
+
+    export default React.memo(AppointmentCard);
 

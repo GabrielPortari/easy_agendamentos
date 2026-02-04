@@ -1,9 +1,9 @@
 import SearchContainer from '@/src/components/search_container/search_container';
 import ShowAppointmentCard from '@/src/components/show_appointment_card/show_appointment_card';
 import TotalAppointments from '@/src/components/total_appointments/total_appointments';
-import { themes } from '@/src/global/themes';
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
+import { styles } from './styles';
 
 export default function Calendar() {
     const appointments = [
@@ -66,16 +66,4 @@ export default function Calendar() {
     );
 }
 
-const styles = StyleSheet.create({
-    container:{flex: 1, backgroundColor: themes.colors.bg},
-    boxTop:{
-		paddingTop: 60,
-		paddingHorizontal: 24,
-		paddingBottom: 24,
-		height: "auto",
-    },
-    title:{fontSize: 24, fontWeight: '600', marginBottom: 8},
-    subtitle:{fontSize: 16, color: themes.colors.gray, marginRight: 6},
-    
-
-})
+ 

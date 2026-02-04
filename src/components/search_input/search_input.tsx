@@ -10,7 +10,7 @@ type Props = {
   placeholder?: string;
 }
 
-export default function SearchInput({ value, onChangeText, placeholder = 'Buscar por nome do cliente..' }: Props) {
+function SearchInput({ value, onChangeText, placeholder = 'Buscar por nome do cliente..' }: Props) {
   return (
     <View style={styles.searchRow}>
       <MaterialIcons name="search" size={20} color={themes.colors.gray} style={styles.icon} />
@@ -24,3 +24,5 @@ export default function SearchInput({ value, onChangeText, placeholder = 'Buscar
     </View>
   );
 }
+
+export default React.memo(SearchInput);

@@ -8,7 +8,7 @@ type Props = {
   total?: string;
 }
 
-export default function TotalAppointments({ count = 0, total = 'R$ 0,00' }: Props) {
+function TotalAppointments({ count = 0, total = 'R$ 0,00' }: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.rowHeader}>
@@ -28,3 +28,5 @@ export default function TotalAppointments({ count = 0, total = 'R$ 0,00' }: Prop
     </View>
   );
 }
+
+export default React.memo(TotalAppointments);

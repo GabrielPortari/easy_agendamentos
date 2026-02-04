@@ -14,7 +14,7 @@ type Props = {
     appointments?: Appointment[];
 }
 
-export default function TodayAppointment({ appointments }: Props) {
+function TodayAppointment({ appointments }: Props) {
     return (
         <View style={styles.card}>
             
@@ -38,4 +38,6 @@ export default function TodayAppointment({ appointments }: Props) {
         </View>
     );
 }
+
+export default React.memo(TodayAppointment);
 
