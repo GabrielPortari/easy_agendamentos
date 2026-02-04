@@ -8,7 +8,7 @@ import { styles } from './styles';
 export default function SearchContainer() {
 
   const [query, setQuery] = useState('');
-  const [activeFilter, setActiveFilter] = useState<'data' | 'nome' | 'valor'>('data');
+  const [orderBy, setOrderBy] = useState<'date' | 'name' | 'value'>('date');
 
   return (
     <View style={styles.container}
@@ -22,31 +22,31 @@ export default function SearchContainer() {
         <TouchableOpacity
           style={[
             styles.btn,
-            { backgroundColor: activeFilter === 'data' ? themes.colors.primary : themes.colors.lightGray },
+            { backgroundColor: orderBy === 'date' ? themes.colors.primary : themes.colors.lightGray },
           ]}
-          onPress={() => setActiveFilter('data')}
+          onPress={() => setOrderBy('date')}
         >
-          <Text style={[styles.btnText, { color: activeFilter === 'data' ? 'white' : themes.colors.darkGray }]}>Data</Text>
+          <Text style={[styles.btnText, { color: orderBy === 'date' ? 'white' : themes.colors.darkGray }]}>Data</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[
             styles.btn,
-            { backgroundColor: activeFilter === 'nome' ? themes.colors.primary : themes.colors.lightGray },
+            { backgroundColor: orderBy === 'name' ? themes.colors.primary : themes.colors.lightGray },
           ]}
-          onPress={() => setActiveFilter('nome')}
+          onPress={() => setOrderBy('name')}
         >
-          <Text style={[styles.btnText, { color: activeFilter === 'nome' ? 'white' : themes.colors.darkGray }]}>Nome</Text>
+          <Text style={[styles.btnText, { color: orderBy === 'name' ? 'white' : themes.colors.darkGray }]}>Nome</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[
             styles.btn,
-            { backgroundColor: activeFilter === 'valor' ? themes.colors.primary : themes.colors.lightGray },
+            { backgroundColor: orderBy === 'value' ? themes.colors.primary : themes.colors.lightGray },
           ]}
-          onPress={() => setActiveFilter('valor')}
+          onPress={() => setOrderBy('value')}
         >
-          <Text style={[styles.btnText, { color: activeFilter === 'valor' ? 'white' : themes.colors.darkGray }]}>Valor</Text>
+          <Text style={[styles.btnText, { color: orderBy === 'value' ? 'white' : themes.colors.darkGray }]}>Valor</Text>
         </TouchableOpacity>
       </View>
     </View>
