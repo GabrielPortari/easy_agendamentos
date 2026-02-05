@@ -23,5 +23,6 @@ export async function closeDB(): Promise<void> {
 export async function executeSql(sql: string, params: any[] = []){
     const db = await openDB();
     const [result] = await db.executeSql(sql, params);
+    await closeDB();
     return result;
 }

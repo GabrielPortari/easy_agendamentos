@@ -3,9 +3,10 @@ import NameChangeModal from '@/src/components/name_change_modal/name_change_moda
 import NewAppointmentModal from '@/src/components/new_appointment_modal/new_appointment_modal';
 import TodayAppointment from '@/src/components/today_appointments/today_appointments_card';
 import { themes } from '@/src/global/themes';
-import { formatDateAppointmentCard } from '@/src/utils/date_formatter';
+import { Appointment } from '@/src/models/appointment';
+import { createAppointment, getAppointments, getLastFinishedAppointment, getNextOpenAppointment } from '@/src/storage/appointments.repo';
 import { MaterialIcons } from '@expo/vector-icons';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { styles } from './styles';
 
@@ -15,44 +16,41 @@ export default function Home() {
 	const [username, setUsername] = useState('user_name');
 	const [showNameModal, setShowNameModal] = useState(false);
 	const [tempName, setTempName] = useState(username);
+	const [nextOpenAppointment, setNextOpenAppointment] = useState<Appointment | null>(null);
+	const [lastFinishedAppointment, setLastFinishedAppointment] = useState<Appointment | null>(null);
+	const[appointments, setAppointments] = useState<Appointment[]>([]);
+	
+	async function loadAppointmentsData(){ 
+		const all = await getAppointments();
+		setAppointments(all);
+		const next = await getNextOpenAppointment();
+		setNextOpenAppointment(next);
+		const last = await getLastFinishedAppointment();
+		setLastFinishedAppointment(last);
+	}
+	
+	useEffect(() => {
+		(async () => {
+			loadAppointmentsData();
+		})()
+	}, []);
 
-	const appointments = [
-		{
-			id: 1,
-			date: new Date(new Date().setDate(new Date().getDate() + 1)),
-			client: "Rafaela Albuquerque",
-			price: "R$ 200,00",
-			status: 'open'
-		},
-		{
-			id: 2,
-			date: new Date(new Date().setDate(new Date().getDate() + 1)),
-			client: "Cleiton Santos",
-			price: "R$ 140,00",
-			status: 'open'
-		},
-		{
-			id: 3,
-			date: new Date(),
-			client: "José Moraes",
-			price: "R$ 150,00",
-			status: 'open'
-		},
-		{
-			id: 4,
-			date: new Date(new Date().setDate(new Date().getDate() - 1)),
-			client: "João da Silva",
-			price: "R$ 100,00",
-			status: 'open'
-		},
-		{
-			id: 5,
-			date: new Date(new Date().setDate(new Date().getDate() - 1)),
-			client: "Maria Oliveira",
-			price: "R$ 80,00",
-			status: 'done'
-		},
-	]
+	async function handleAddAppointment(data: {client: string, date: Date, value?: number}){
+		try{
+			const newAppointment = {
+				clientName: data.client,
+				date: data.date.toISOString(),
+				value: data.value ?? 0,
+				status: 'pending' as const
+			};
+			await createAppointment(newAppointment);
+			await loadAppointmentsData();
+			setShowModal(false);
+		}catch(error){
+			console.warn("Erro ao criar agendamento", error);
+		}
+	}
+
 	return (
 		<View style={styles.container}>
 			<ScrollView style={{ flex: 1 }} contentContainerStyle={{paddingBottom: 120 }}>
@@ -67,17 +65,18 @@ export default function Home() {
 				</View>
 
 				<View style={styles.boxMiddle}>
+
 					<AppointmentCard
-						date={formatDateAppointmentCard(appointments[2].date)}
-						client={appointments[2].client}
-						price={appointments[2].price}
+						date={nextOpenAppointment?.date ?? ""}
+						client={nextOpenAppointment?.clientName ?? ""}
+						price={nextOpenAppointment ? `R$ ${nextOpenAppointment.value.toFixed(2)}` : ""}
 						type="next"
 					/>
 
 					<AppointmentCard
-						date={formatDateAppointmentCard(appointments[4].date)}
-						client={appointments[4].client}
-						price={appointments[4].price}
+						date={lastFinishedAppointment?.date ?? ""}
+						client={lastFinishedAppointment?.clientName ?? ""}
+						price={lastFinishedAppointment ? `R$ ${lastFinishedAppointment.value.toFixed(2)}` : ""}
 						type="previous"
 						status="done"
 					/>
@@ -91,8 +90,7 @@ export default function Home() {
 				visible={showModal}
 				onClose={() => setShowModal(false)}
 				onAdd={(newAppointment) => {
-					console.log(newAppointment);
-					setShowModal(false);
+					handleAddAppointment(newAppointment);
 				}}
 			/>
 
