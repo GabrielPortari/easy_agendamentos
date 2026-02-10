@@ -4,9 +4,15 @@ import NewAppointmentModal from '@/src/components/new_appointment_modal/new_appo
 import TodayAppointment from '@/src/components/today_appointments/today_appointments_card';
 import { themes } from '@/src/global/themes';
 import { Appointment } from '@/src/models/appointment';
-import { createAppointment, getAppointments, getLastFinishedAppointment, getNextOpenAppointment } from '@/src/storage/appointments.repo';
+import {
+	createAppointment,
+	getAllAppointments,
+	getLastAppointment,
+	getNextAppointment,
+} from '@/src/storage/appointments.repo';
+import { formatDateAppointmentCard } from '@/src/utils/date_formatter';
 import { MaterialIcons } from '@expo/vector-icons';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { styles } from './styles';
 
@@ -19,37 +25,28 @@ export default function Home() {
 	const [nextOpenAppointment, setNextOpenAppointment] = useState<Appointment | null>(null);
 	const [lastFinishedAppointment, setLastFinishedAppointment] = useState<Appointment | null>(null);
 	const[appointments, setAppointments] = useState<Appointment[]>([]);
-	
-	async function loadAppointmentsData(){ 
-		const all = await getAppointments();
-		setAppointments(all);
-		const next = await getNextOpenAppointment();
-		setNextOpenAppointment(next);
-		const last = await getLastFinishedAppointment();
-		setLastFinishedAppointment(last);
-	}
-	
-	useEffect(() => {
-		(async () => {
-			loadAppointmentsData();
-		})()
-	}, []);
 
-	async function handleAddAppointment(data: {client: string, date: Date, value?: number}){
-		try{
-			const newAppointment = {
-				clientName: data.client,
-				date: data.date.toISOString(),
-				value: data.value ?? 0,
-				status: 'pending' as const
-			};
-			await createAppointment(newAppointment);
-			await loadAppointmentsData();
-			setShowModal(false);
-		}catch(error){
-			console.warn("Erro ao criar agendamento", error);
+	async function loadAppointments() {
+		try {
+			const [all, next, last] = await Promise.all([
+				getAllAppointments(),
+				getNextAppointment(),
+				getLastAppointment(),
+			]);
+			setAppointments(all ?? []);
+			setNextOpenAppointment(next ?? null);
+			setLastFinishedAppointment(last ?? null);
+		} catch (err) {
+			// ignore for now or add a logger
+			console.warn('Error loading appointments', err);
 		}
 	}
+
+	React.useEffect(() => {
+		loadAppointments();
+	}, []);
+	
+
 
 	return (
 		<View style={styles.container}>
@@ -67,14 +64,14 @@ export default function Home() {
 				<View style={styles.boxMiddle}>
 
 					<AppointmentCard
-						date={nextOpenAppointment?.date ?? ""}
+						date={nextOpenAppointment ? formatDateAppointmentCard(nextOpenAppointment?.date) : ""}
 						client={nextOpenAppointment?.clientName ?? ""}
 						price={nextOpenAppointment ? `R$ ${nextOpenAppointment.value.toFixed(2)}` : ""}
 						type="next"
 					/>
 
 					<AppointmentCard
-						date={lastFinishedAppointment?.date ?? ""}
+						date={lastFinishedAppointment?.date ? formatDateAppointmentCard(lastFinishedAppointment.date) : ""}
 						client={lastFinishedAppointment?.clientName ?? ""}
 						price={lastFinishedAppointment ? `R$ ${lastFinishedAppointment.value.toFixed(2)}` : ""}
 						type="previous"
@@ -89,8 +86,31 @@ export default function Home() {
 			<NewAppointmentModal
 				visible={showModal}
 				onClose={() => setShowModal(false)}
-				onAdd={(newAppointment) => {
-					handleAddAppointment(newAppointment);
+				onAdd={async (newAppointment: any) => {
+					console.log('Adding appointment', newAppointment);
+					try {
+						// Normalize modal fields to DB shape
+						const clientName = newAppointment.client ?? newAppointment.clientName ?? newAppointment.name;
+						const rawPrice = newAppointment.price ?? newAppointment.value ?? '0';
+						const value = typeof rawPrice === 'string' ? parseFloat(rawPrice.replace(',', '.')) : Number(rawPrice);
+						const dateInput = newAppointment.date ?? newAppointment.datetime ?? new Date().toISOString();
+						const date = typeof dateInput === 'string' ? new Date(dateInput).toISOString() : new Date(dateInput).toISOString();
+
+						if (!clientName) throw new Error('clientName is required');
+
+						const payload = {
+							date,
+							clientName,
+							value: isNaN(value) ? 0 : value,
+							status: newAppointment.status ?? 'pending',
+						};
+
+						await createAppointment(payload);
+						await loadAppointments();
+						setShowModal(false);
+					} catch (err) {
+						console.warn('Failed to create appointment', err);
+					}
 				}}
 			/>
 

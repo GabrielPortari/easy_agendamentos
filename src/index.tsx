@@ -1,12 +1,14 @@
 import { NavigationContainer } from "@react-navigation/native";
+import { SQLiteProvider } from 'expo-sqlite';
 import Navigation from "./navigation/index.navigation";
-import { initAppointmentsTable } from "./storage/appointments.setup";
+import { DB_NAME, migrateDbIfNeeded } from './storage/database';
 
 export default function Index(){
-  initAppointmentsTable();
     return (
-    <NavigationContainer>
-      <Navigation />
-    </NavigationContainer>
+    <SQLiteProvider databaseName={DB_NAME} onInit={migrateDbIfNeeded}>
+      <NavigationContainer>
+        <Navigation />
+      </NavigationContainer>
+    </SQLiteProvider>
   );
 }

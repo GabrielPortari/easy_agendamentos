@@ -1,28 +1,48 @@
-import SQLite from 'react-native-sqlite-storage';
+import * as SQLite from 'expo-sqlite';
 
-SQLite.DEBUG(__DEV__);
-SQLite.enablePromise(true);
+export const DB_NAME = 'easy_agendamentos.db';
 
-const DB_NAME = 'easy_appointments.db';
-let dbInstance: SQLite.SQLiteDatabase | null = null;
-
-export async function openDB(): Promise<SQLite.SQLiteDatabase> {
-    if (dbInstance) {
-        return dbInstance;
-    }
-    dbInstance = await SQLite.openDatabase({ name: DB_NAME, location: 'default' });
-    return dbInstance;    
+export async function openDatabase(): Promise<SQLite.SQLiteDatabase> {
+  const db = await SQLite.openDatabaseAsync(DB_NAME);
+  try {
+    await migrateDbIfNeeded(db);
+  } catch (err) {
+    // If migration fails, log and still return the DB so caller can handle errors.
+    // Migration is idempotent; errors here usually indicate underlying native issues.
+    // eslint-disable-next-line no-console
+    console.warn('migrateDbIfNeeded error', err);
+  }
+  return db;
 }
 
-export async function closeDB(): Promise<void> {
-    if (!dbInstance) return;
-    await dbInstance.close();
-    dbInstance = null;
+export async function migrateDbIfNeeded(db: SQLite.SQLiteDatabase) {
+  const DATABASE_VERSION = 1;
+
+  const result = await db.getFirstAsync<{ user_version: number }>('PRAGMA user_version');
+  let currentDbVersion = result?.user_version ?? 0;
+  if (currentDbVersion >= DATABASE_VERSION) return;
+
+  if (currentDbVersion === 0) {
+    await db.execAsync(`PRAGMA journal_mode = WAL;`);
+    await db.execAsync(`
+      CREATE TABLE IF NOT EXISTS appointments (
+        id INTEGER PRIMARY KEY NOT NULL,
+        date TEXT NOT NULL,
+        clientName TEXT NOT NULL,
+        value REAL NOT NULL,
+        status TEXT NOT NULL DEFAULT 'pending',
+        createdAt TEXT,
+        updatedAt TEXT
+      );
+    `);
+    currentDbVersion = 1;
+  }
+
+  await db.execAsync(`PRAGMA user_version = ${DATABASE_VERSION}`);
 }
 
-export async function executeSql(sql: string, params: any[] = []){
-    const db = await openDB();
-    const [result] = await db.executeSql(sql, params);
-    await closeDB();
-    return result;
-}
+export default {
+  DB_NAME,
+  openDatabase,
+  migrateDbIfNeeded,
+};

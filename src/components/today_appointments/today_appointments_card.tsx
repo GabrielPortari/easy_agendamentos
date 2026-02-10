@@ -1,5 +1,6 @@
 import { themes } from "@/src/global/themes";
 import { Appointment } from "@/src/models/appointment";
+import { formatDateTodayAppointment } from "@/src/utils/date_formatter";
 import React from "react";
 import { Text, View } from "react-native";
 import { styles } from "./styles";
@@ -22,7 +23,7 @@ function TodayAppointment({ appointments }: Props) {
                 appointments.map(item => (
                     <View key={item.id} style={{marginTop:12}}>
                         <View style={styles.rowItem}> 
-                            <Text style={{flex:1, color: themes.colors.primary}}>{item.date}</Text>
+                            <Text style={{flex:1, color: themes.colors.primary}}>{formatDateTodayAppointment(item.date)}</Text>
                             <Text style={{flex:2}}>{item.clientName}</Text>
                             <Text style={{flex:1, color: themes.colors.success}}>{item.value}</Text>
                         </View>
