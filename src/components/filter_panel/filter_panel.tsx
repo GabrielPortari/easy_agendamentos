@@ -17,9 +17,11 @@ type Props = {
   setFilterBy: (f: FilterBy) => void;
   orderBy: OrderBy;
   setOrderBy: (o: OrderBy) => void;
+  orderDirection?: 'asc' | 'desc';
+  setOrderDirection?: (d: 'asc' | 'desc') => void;
 };
 
-export default function FilterPanel({ query, setQuery, filterBy, setFilterBy, orderBy, setOrderBy }: Props) {
+export default function FilterPanel({ query, setQuery, filterBy, setFilterBy, orderBy, setOrderBy, orderDirection, setOrderDirection }: Props) {
   return (
     <Card>
       <SearchInput value={query} onChangeText={setQuery} />
@@ -39,6 +41,13 @@ export default function FilterPanel({ query, setQuery, filterBy, setFilterBy, or
         <FilterButton label="Data" isSelected={orderBy === 'date'} onPress={() => setOrderBy('date')} />
         <FilterButton label="Nome" isSelected={orderBy === 'name'} onPress={() => setOrderBy('name')} />
         <FilterButton label="Valor" isSelected={orderBy === 'value'} onPress={() => setOrderBy('value')} />
+        {orderDirection !== undefined && setOrderDirection && (
+          <FilterButton
+            label={orderDirection === 'asc' ? '↑ Crescente' : '↓ Decrescente'}
+            isSelected={true}
+            onPress={() => setOrderDirection(orderDirection === 'asc' ? 'desc' : 'asc')}
+          />
+        )}
       </View>
     </Card>
   );

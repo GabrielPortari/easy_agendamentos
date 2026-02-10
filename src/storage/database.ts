@@ -2,17 +2,23 @@ import * as SQLite from 'expo-sqlite';
 
 export const DB_NAME = 'easy_agendamentos.db';
 
+let dbInstance: SQLite.SQLiteDatabase | null = null;
+let migrationPromise: Promise<void> | null = null;
+
 export async function openDatabase(): Promise<SQLite.SQLiteDatabase> {
-  const db = await SQLite.openDatabaseAsync(DB_NAME);
-  try {
-    await migrateDbIfNeeded(db);
-  } catch (err) {
-    // If migration fails, log and still return the DB so caller can handle errors.
-    // Migration is idempotent; errors here usually indicate underlying native issues.
-    // eslint-disable-next-line no-console
-    console.warn('migrateDbIfNeeded error', err);
+  if (dbInstance) return dbInstance;
+
+  dbInstance = await SQLite.openDatabaseAsync(DB_NAME);
+  
+  if (!migrationPromise) {
+    migrationPromise = migrateDbIfNeeded(dbInstance).catch((err) => {
+      console.warn('migrateDbIfNeeded error', err);
+      migrationPromise = null;
+    });
   }
-  return db;
+  
+  await migrationPromise;
+  return dbInstance;
 }
 
 export async function migrateDbIfNeeded(db: SQLite.SQLiteDatabase) {

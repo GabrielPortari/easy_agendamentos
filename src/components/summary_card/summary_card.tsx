@@ -8,10 +8,11 @@ type Props = {
   totalAppointments: number | string;
   totalValue: string;
   lostValue: string;
+  pendingValue: string;
   completionRate: string | number;
 };
 
-function SummaryCard({ totalAppointments, totalValue, lostValue, completionRate }: Props) {
+function SummaryCard({ totalAppointments, totalValue, lostValue, pendingValue, completionRate }: Props) {
   return (
     <Card>
       <Text style={styles.title}>Resumo do Período</Text>
@@ -29,6 +30,11 @@ function SummaryCard({ totalAppointments, totalValue, lostValue, completionRate 
       <View style={styles.rowMargin}>
         <Text style={styles.label}>Valor perdido (cancelados):</Text>
         <Text style={[styles.value, { color: themes.colors.error }]}>{lostValue}</Text>
+      </View>
+
+      <View style={styles.rowMargin}>
+        <Text style={styles.label}>À receber (pendentes):</Text>
+        <Text style={[styles.value, { color: themes.colors.warning }]}>{pendingValue}</Text>
       </View>
 
       <View style={styles.rowMargin}>

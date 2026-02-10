@@ -10,8 +10,10 @@ import {
 	getLastAppointment,
 	getNextAppointment,
 } from '@/src/storage/appointments.repo';
+import { getUsernameStorage, setUsernameStorage } from '@/src/storage/user.repo';
 import { formatDateAppointmentCard } from '@/src/utils/date_formatter';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useFocusEffect } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { styles } from './styles';
@@ -22,6 +24,7 @@ export default function Home() {
 	const [username, setUsername] = useState('user_name');
 	const [showNameModal, setShowNameModal] = useState(false);
 	const [tempName, setTempName] = useState(username);
+
 	const [nextOpenAppointment, setNextOpenAppointment] = useState<Appointment | null>(null);
 	const [lastFinishedAppointment, setLastFinishedAppointment] = useState<Appointment | null>(null);
 	const[appointments, setAppointments] = useState<Appointment[]>([]);
@@ -43,8 +46,19 @@ export default function Home() {
 	}
 
 	React.useEffect(() => {
-		loadAppointments();
+		(async () => {
+			const stored = await getUsernameStorage();
+			if (stored) setUsername(stored);
+		})();
 	}, []);
+
+	useFocusEffect(
+		React.useCallback(() => {
+			(async () => {
+				await loadAppointments();
+			})();
+		}, [])
+	);
 	
 
 
@@ -118,7 +132,7 @@ export default function Home() {
 				visible={showNameModal}
 				initialValue={username}
 				onClose={() => setShowNameModal(false)}
-				onSave={(newName) => { setUsername(newName); setShowNameModal(false); }}
+				onSave={async (newName: string) => { await setUsernameStorage(newName); setUsername(newName); setShowNameModal(false); }}
 			/>
 
 			<TouchableOpacity
