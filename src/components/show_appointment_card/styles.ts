@@ -1,14 +1,10 @@
+import { layout } from '@/src/global/styles';
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   card: {
-    marginTop: 24,
-    marginHorizontal: 24,
-    backgroundColor: 'white',
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: '#e6e6e6',
-    elevation: 2,
+    ...layout.cardBase,
+    ...layout.cardMargin,
     overflow: 'hidden'
   },
   top: {

@@ -1,6 +1,7 @@
 import Card from '@/src/components/card/card';
 import FilterPanel from '@/src/components/filter_panel/filter_panel';
 import ReportCard from '@/src/components/report_card/report_card';
+import ScreenHeader from '@/src/components/screen_header/screen_header';
 import SummaryCard from '@/src/components/summary_card/summary_card';
 import { TableHeader, TableRow } from '@/src/components/table_row/table_row';
 import { themes } from '@/src/global/themes';
@@ -9,7 +10,7 @@ import { getAllAppointments } from '@/src/storage/appointments.repo';
 import { formatDateAppointmentCard } from '@/src/utils/date_formatter';
 import { useFocusEffect } from '@react-navigation/native';
 import React, { useMemo, useState } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { styles } from './styles';
 
 export default function Reports() {
@@ -84,10 +85,7 @@ export default function Reports() {
     return (
         <View style={styles.container}>
             <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 40 }}>
-                <View style={styles.boxTop}>
-                    <Text style={styles.title}>Relatórios</Text>
-                    <Text style={styles.subtitle}>Histórico de agendamentos realizados</Text>
-                </View>
+                <ScreenHeader title="Relatórios" subtitle="Histórico de agendamentos realizados" />
                 <ReportCard title="Concluídos" value={`${totals.doneCount}`} icon="check" iconBg={themes.colors.primaryLight} iconColor={themes.colors.primary} />
                 <ReportCard title="Cancelados" value={`${totals.canceledCount}`} icon="close" iconBg={themes.colors.errorLight} iconColor={themes.colors.error} />
                 <ReportCard title="Receita total" value={`R$ ${totals.totalValue.toFixed(2)}`} icon="attach-money" iconBg={themes.colors.successLight} iconColor={themes.colors.success} />

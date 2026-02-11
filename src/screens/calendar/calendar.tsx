@@ -1,3 +1,4 @@
+import ScreenHeader from '@/src/components/screen_header/screen_header';
 import SearchContainer from '@/src/components/search_container/search_container';
 import ShowAppointmentCard from '@/src/components/show_appointment_card/show_appointment_card';
 import TotalAppointments from '@/src/components/total_appointments/total_appointments';
@@ -6,7 +7,7 @@ import { getAllAppointments, getLastAppointment, getNextAppointment, updateAppoi
 import { formatDateAppointmentCard, formatDateTodayAppointment } from '@/src/utils/date_formatter';
 import { useFocusEffect } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { styles } from './styles';
 
 export default function Calendar() {
@@ -40,13 +41,13 @@ export default function Calendar() {
 	);
 
 
+	const nextDate = nextOpenAppointment ? formatDateAppointmentCard(nextOpenAppointment.date) : '';
+	const subtitle = nextDate ? `Próximos agendamentos a partir de ${nextDate}` : 'Próximos agendamentos';
+
 	return (
 		<View style={styles.container}>
 			<ScrollView style={{ flex: 1 }}>
-				<View style={styles.boxTop}>
-					<Text style={styles.title}>Calendário de agendamentos</Text>
-					<Text style={styles.subtitle}>Próximos agendamentos a partir de {nextOpenAppointment ? formatDateAppointmentCard(nextOpenAppointment.date) : ''}</Text>
-				</View>
+				<ScreenHeader title="Calendário de agendamentos" subtitle={subtitle} />
 
 				<SearchContainer query={query} onQueryChange={setQuery} orderBy={orderBy} onOrderByChange={setOrderBy} orderDirection={orderDirection} onOrderDirectionChange={setOrderDirection} />
 

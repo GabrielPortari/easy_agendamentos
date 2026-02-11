@@ -1,14 +1,10 @@
+import { layout } from '@/src/global/styles';
 import { themes } from "@/src/global/themes";
 import { Platform, StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-	container: { flex: 1, backgroundColor: themes.colors.bg },
-	boxTop:{
-		paddingTop: 60,
-		paddingHorizontal: 24,
-		paddingBottom: 24,
-		height: "auto",
-	},
+	container: layout.screen,
+	boxTop: layout.screenHeader,
 	boxMiddle:{
 		flex: 2,
 		paddingHorizontal: 24,

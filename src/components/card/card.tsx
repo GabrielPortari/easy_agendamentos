@@ -1,4 +1,4 @@
-import { themes } from '@/src/global/themes';
+import { layout } from '@/src/global/styles';
 import React from 'react';
 import { StyleSheet, View, ViewStyle } from 'react-native';
 
@@ -13,13 +13,8 @@ export default function Card({ children, style }: Props) {
 
 const styles = StyleSheet.create({
   card: {
-    marginTop: 24,
-    marginHorizontal: 24,
+    ...layout.cardBase,
+    ...layout.cardMargin,
     padding: 24,
-    backgroundColor: 'white',
-    elevation: 2,
-    borderColor: themes.colors.lightGray,
-    borderRadius: 16,
-    borderWidth: 1,
   },
 });

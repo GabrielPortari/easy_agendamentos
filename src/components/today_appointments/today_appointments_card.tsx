@@ -1,4 +1,3 @@
-import { themes } from "@/src/global/themes";
 import { Appointment } from "@/src/models/appointment";
 import { formatDateTodayAppointment } from "@/src/utils/date_formatter";
 import React from "react";
@@ -25,16 +24,16 @@ function TodayAppointment({ appointments }: Props) {
             <Text style={styles.textTitle}>Agendamentos de hoje</Text>
 
             {todayList.length === 0 ? (
-                <View style={{height: 64, justifyContent:'center', alignItems:'center'}}>
-                    <Text style={{color: themes.colors.gray}}>Nenhum agendamento para hoje</Text>
+                <View style={styles.emptyState}>
+                    <Text style={styles.emptyText}>Nenhum agendamento para hoje</Text>
                 </View>
             ) : (
                 todayList.map(item => (
                     <View key={item.id} style={{marginTop:12}}>
                         <View style={styles.rowItem}> 
-                            <Text style={{flex:1, color: themes.colors.primary}}>{formatDateTodayAppointment(item.date)}</Text>
-                            <Text style={{flex:1}}>{item.clientName}</Text>
-                            <Text style={{flex:1, color: themes.colors.success}}>{`R$ ${item.value.toFixed(2)}`}</Text>
+                            <Text style={styles.cellTime}>{formatDateTodayAppointment(item.date)}</Text>
+                            <Text style={styles.cellClient}>{item.clientName}</Text>
+                            <Text style={styles.cellPrice}>{`R$ ${item.value.toFixed(2)}`}</Text>
                         </View>
                     </View>
                 ))
