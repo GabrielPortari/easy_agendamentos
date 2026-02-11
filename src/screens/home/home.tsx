@@ -5,10 +5,10 @@ import TodayAppointment from '@/src/components/today_appointments/today_appointm
 import { themes } from '@/src/global/themes';
 import { Appointment } from '@/src/models/appointment';
 import {
-	createAppointment,
-	getAllAppointments,
-	getLastAppointment,
-	getNextAppointment,
+    createAppointment,
+    getAllAppointments,
+    getLastAppointment,
+    getNextAppointment,
 } from '@/src/storage/appointments.repo';
 import { getUsernameStorage, setUsernameStorage } from '@/src/storage/user.repo';
 import { formatDateAppointmentCard, isSameDay } from '@/src/utils/date_formatter';

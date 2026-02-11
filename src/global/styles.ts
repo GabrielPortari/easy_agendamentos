@@ -1,12 +1,25 @@
 import { themes } from '@/src/global/themes';
+import { TextStyle, ViewStyle } from 'react-native';
 
-export const layout = {
+type LayoutStyles = {
+	screen: ViewStyle;
+	screenHeader: ViewStyle;
+	screenTitle: TextStyle;
+	screenSubtitle: TextStyle;
+	cardBase: ViewStyle;
+	cardMargin: ViewStyle;
+	row: ViewStyle;
+	rowSpaceBetween: ViewStyle;
+	divider: ViewStyle;
+	controlsRow: ViewStyle;
+};
+
+export const layout: LayoutStyles = {
 	screen: { flex: 1, backgroundColor: themes.colors.bg },
 	screenHeader: {
 		paddingTop: 60,
 		paddingHorizontal: 24,
 		paddingBottom: 24,
-		height: 'auto',
 	},
 	screenTitle: { fontSize: 24, fontWeight: '600', marginBottom: 8 },
 	screenSubtitle: { fontSize: 16, color: themes.colors.gray, marginRight: 6 },
