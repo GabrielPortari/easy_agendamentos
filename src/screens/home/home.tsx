@@ -11,7 +11,7 @@ import {
 	getNextAppointment,
 } from '@/src/storage/appointments.repo';
 import { getUsernameStorage, setUsernameStorage } from '@/src/storage/user.repo';
-import { formatDateAppointmentCard } from '@/src/utils/date_formatter';
+import { formatDateAppointmentCard, isSameDay } from '@/src/utils/date_formatter';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
 import React, { useState } from 'react';
@@ -60,7 +60,7 @@ export default function Home() {
 		}, [])
 	);
 	
-
+	const todayCount = appointments.filter((item) => isSameDay(item.date)).length;
 
 	return (
 		<View style={styles.container}>
@@ -72,7 +72,7 @@ export default function Home() {
 							<MaterialIcons name="edit" size={28} color={themes.colors.gray} />
 						</TouchableOpacity>
 					</View>
-					<Text style={styles.infoAppointments}>Você possui <Text style={{ color: themes.colors.primary }}>{appointments.length} agendamentos</Text> hoje</Text>
+					<Text style={styles.infoAppointments}>Você possui <Text style={{ color: themes.colors.primary }}>{todayCount} agendamentos</Text> hoje</Text>
 				</View>
 
 				<View style={styles.boxMiddle}>

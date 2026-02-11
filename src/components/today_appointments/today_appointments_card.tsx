@@ -1,5 +1,5 @@
 import { Appointment } from "@/src/models/appointment";
-import { formatDateTodayAppointment } from "@/src/utils/date_formatter";
+import { formatDateTodayAppointment, isSameDay } from "@/src/utils/date_formatter";
 import React from "react";
 import { Text, View } from "react-native";
 import { styles } from "./styles";
@@ -9,13 +9,6 @@ type Props = {
 }
 
 function TodayAppointment({ appointments }: Props) {
-    // helper: check if date is same day as today
-    function isSameDay(input: string | Date, other: Date = new Date()) {
-        const d = input instanceof Date ? input : new Date(input);
-        if (Number.isNaN(d.getTime())) return false;
-        return d.getFullYear() === other.getFullYear() && d.getMonth() === other.getMonth() && d.getDate() === other.getDate();
-    }
-
     const todayList = (appointments ?? []).filter((a) => isSameDay(a.date));
 
     return (
