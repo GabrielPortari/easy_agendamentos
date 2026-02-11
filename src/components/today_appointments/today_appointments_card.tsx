@@ -9,19 +9,25 @@ type Props = {
 }
 
 function TodayAppointment({ appointments }: Props) {
-    const todayList = (appointments ?? []).filter((a) => isSameDay(a.date));
+    const todayList = (appointments ?? []).filter((a) => isSameDay(a.date) && a.status === 'pending');
+
+    const sortedTodayList = [...todayList].sort((a, b) => {
+        const timeA = new Date(a.date).getTime();
+        const timeB = new Date(b.date).getTime();
+        return timeA - timeB;
+    });
 
     return (
         <View style={styles.card}>
 
             <Text style={styles.textTitle}>Agendamentos de hoje</Text>
 
-            {todayList.length === 0 ? (
+            {sortedTodayList.length === 0 ? (
                 <View style={styles.emptyState}>
                     <Text style={styles.emptyText}>Nenhum agendamento para hoje</Text>
                 </View>
             ) : (
-                todayList.map(item => (
+                sortedTodayList.map(item => (
                     <View key={item.id} style={{marginTop:12}}>
                         <View style={styles.rowItem}> 
                             <Text style={styles.cellTime}>{formatDateTodayAppointment(item.date)}</Text>
